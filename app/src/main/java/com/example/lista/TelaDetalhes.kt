@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.room.Room
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 
 class TelaDetalhes : Fragment() {
 
@@ -55,8 +58,28 @@ class TelaDetalhes : Fragment() {
                 val afazer = Afazer(titulo,descricao)
                 afazer.id=afazerID
                 dao.update(afazer)
+                hideKeyboard()
+                volta_lista(it)
+                //this.findNavController().navigate(R.id.detalhes_para_lista)
+
             }
 
+        }
+    }
+    fun volta_lista(v: View) {
+        v.findNavController().navigate(R.id.detalhes_para_lista)
+    }
+    fun hideKeyboard() {
+        val inputManager: InputMethodManager = this.requireActivity()
+                .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        // check if no view has focus:
+        val currentFocusedView = this.requireActivity().currentFocus
+        if (currentFocusedView != null) {
+            inputManager.hideSoftInputFromWindow(
+                    currentFocusedView.windowToken,
+                    InputMethodManager.HIDE_NOT_ALWAYS
+            )
         }
     }
 }

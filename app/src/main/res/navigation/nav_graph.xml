@@ -17,5 +17,9 @@
         android:id="@+id/telaDetalhes"
         android:name="com.example.lista.TelaDetalhes"
         android:label="fragment_tela_detalhes"
-        tools:layout="@layout/fragment_tela_detalhes" />
+        tools:layout="@layout/fragment_tela_detalhes" >
+        <action
+            android:id="@+id/detalhes_para_lista"
+            app:destination="@id/telaLista" />
+    </fragment>
 </navigation>
